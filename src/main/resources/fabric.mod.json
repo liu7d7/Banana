@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "id": "banana",
+  "version": "${version}",
+  "name": "Banana",
+  "description": "People still play fortnite???",
+  "authors": [
+    "QuantumClient"
+  ],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/banana/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "main": [
+      "org.quantumclient.banana.Banana"
+    ]
+  },
+  "mixins": [
+    "banana.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.11.3",
+    "fabric": "*",
+    "minecraft": "1.16.5"
+  }
+}
