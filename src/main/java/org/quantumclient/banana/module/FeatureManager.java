@@ -6,6 +6,7 @@ import org.quantumclient.banana.event.KeyPressEvent;
 import org.quantumclient.banana.module.highway.*;
 import org.quantumclient.banana.module.render.ClickGUI;
 import org.quantumclient.banana.settings.Setting;
+import org.quantumclient.banana.utilities.MinecraftInterface;
 import org.quantumclient.energy.EventBus;
 import org.quantumclient.energy.Subscribe;
 
@@ -13,9 +14,7 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.quantumclient.banana.module.Feature.mc;
-
-public class FeatureManager {
+public class FeatureManager implements MinecraftInterface {
 
     private static List<Feature> features = new ArrayList<>();
 
@@ -28,6 +27,7 @@ public class FeatureManager {
         add(new Speed());
         add(new Yaw());
         add(new ClickGUI());
+        add(new NoSwingPacket());
     }
 
     public Feature getFeature(Class clazz) {
@@ -56,9 +56,8 @@ public class FeatureManager {
                     }
                     final Setting setting = (Setting) field.get(feature);
                     if (setting != null) {
-                        System.out.println("hi");
                         setting.initializeFeature(feature);
-                        feature.getSettings().add(setting);
+                        feature.settings.add(setting);
                     }
                 }
             }
@@ -84,9 +83,6 @@ public class FeatureManager {
     public void onKey(KeyPressEvent event) {
         if (event.action != GLFW.GLFW_PRESS) return;
         if (mc.currentScreen != null) return;
-        if (event.keyCode == GLFW.GLFW_KEY_COMMA) {
-            mc.openScreen(new ChatScreen(""));
-        }
         features.stream().filter(f -> f.getKeyBind() == event.keyCode).forEach(Feature::toggle);
     }
 

@@ -11,7 +11,7 @@ import java.util.List;
 public class Feature {
 
     private boolean binding = false, drawn = false;
-    private List<Setting> settings = new ArrayList<>();
+    public List<Setting> settings = new ArrayList<>();
     private boolean toggled = false;
     private int keyBind = -2;
     private Category category;
@@ -100,7 +100,7 @@ public class Feature {
     }
 
     public boolean hasSettings() {
-        return settings.isEmpty();
+        return !this.settings.isEmpty();
     }
 
     public boolean isBinding() {
