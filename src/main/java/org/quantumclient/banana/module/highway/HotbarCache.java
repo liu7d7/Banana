@@ -20,8 +20,8 @@ public class HotbarCache extends Feature {
 
     final static List<String> modes = Arrays.asList("cache", "refill");
 
-    public static final Setting Mode = new Setting("Mode", "cache", modes);
-    public static final Setting Delay = new Setting("Delay", 1.0f, 0.0f, 10.0f, 1.0f, false);
+    public static final Setting Mode = new Setting("mode", "cache", modes);
+    public static final Setting Delay = new Setting("delay", 1.0f, 0.0f, 10.0f, 1.0f, false);
 
     public HotbarCache()
     {

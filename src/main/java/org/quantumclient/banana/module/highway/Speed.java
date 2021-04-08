@@ -20,14 +20,14 @@ public class Speed extends Feature {
 
     Vec3d speedVec = Vec3d.ZERO;
 
-    public static final Setting bypass = new Setting("Bypass", false);
-    public static final Setting tickDelay = new Setting("TickDelay", 10, 0, 100, 1, true);
-    public static final Setting randomize = new Setting("TickRandomizer", 5, 1, 100, 1, true);
-    public static final Setting addition = new Setting("TickConstant", 8, 0, 100, 1, true);
-    public static final Setting up2 = new Setting("StopUp2", true);
-    public static final Setting Speed = new Setting("Speed", 1.56f, 0.3f, 3f, 0.01f, false);
-    public static final Setting disableOnLagBack = new Setting("Disable", false);
-    public static final Setting Sneak = new Setting("Sneak", false);
+    public static final Setting bypass = new Setting("bypass", false);
+    public static final Setting tickDelay = new Setting("tick-delay", 10, 0, 100, 1, true);
+    public static final Setting randomize = new Setting("tick-randomizer", 5, 1, 100, 1, true);
+    public static final Setting addition = new Setting("tick-constant", 8, 0, 100, 1, true);
+    public static final Setting up2 = new Setting("stop-up-2", true);
+    public static final Setting Speed = new Setting("speed", 1.56f, 0.3f, 3f, 0.01f, false);
+    public static final Setting disableOnLagBack = new Setting("disable", false);
+    public static final Setting Sneak = new Setting("sneak", false);
 
     public Speed() {
         super("speed", Category.highway, GLFW.GLFW_KEY_I);

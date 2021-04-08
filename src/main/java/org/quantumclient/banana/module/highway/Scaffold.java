@@ -8,12 +8,21 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.RaycastContext;
+import org.quantumclient.banana.event.EventSingleTick;
 import org.quantumclient.banana.event.EventTwelvetupleTick;
 import org.quantumclient.banana.module.Category;
 import org.quantumclient.banana.module.Feature;
+import org.quantumclient.banana.settings.Setting;
 import org.quantumclient.energy.Subscribe;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class Scaffold extends Feature {
+
+    final static List<String> eventMode = Arrays.asList("twelve-tuple", "single");
+
+    public static final Setting eventM = new Setting("event", "single", eventMode);
 
     public Scaffold() {
         super("scaffold", Category.highway);
@@ -23,10 +32,23 @@ public class Scaffold extends Feature {
 
     @Subscribe
     public void onTick(EventTwelvetupleTick event) {
-        if (mc.world.getBlockState(mc.player.getBlockPos().down()).isAir()) {
-            searchBlocks();
-            placeBlock(mc.player.getBlockPos().down());
-            mc.player.inventory.selectedSlot = prevSlot;
+        if (eventM.getValString().equals("twelve-tuple")) {
+            if (mc.world.getBlockState(mc.player.getBlockPos().down()).isAir()) {
+                searchBlocks();
+                placeBlock(mc.player.getBlockPos().down());
+                mc.player.inventory.selectedSlot = prevSlot;
+            }
+        }
+    }
+
+    @Subscribe
+    public void onTick2(EventSingleTick event) {
+        if (eventM.getValString().equals("single")) {
+            if (mc.world.getBlockState(mc.player.getBlockPos().down()).isAir()) {
+                searchBlocks();
+                placeBlock(mc.player.getBlockPos().down());
+                mc.player.inventory.selectedSlot = prevSlot;
+            }
         }
     }
 

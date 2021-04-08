@@ -18,10 +18,10 @@ import java.util.stream.Collectors;
 
 public class AutoWalk extends Feature {
 
-    public static final Setting autoAlign = new Setting("AutoAlign", false);
-    public static final Setting pauseNoPickaxe = new Setting("NoPickaxePause", false);
+    public static final Setting autoAlign = new Setting("auto-align", false);
+    public static final Setting pauseNoPickaxe = new Setting("no-pick-pause", false);
     public static final Setting player = new Setting("player", false);
-    public static final Setting stop = new Setting("StopY121", false);
+    public static final Setting stop = new Setting("stop-y121", false);
 
     @Override
     public void toggleNoSave() {

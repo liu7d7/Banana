@@ -19,12 +19,12 @@ public class AutoEat extends Feature {
     
     final static List<String> modes = Arrays.asList("hunger", "health", "both");
 
-    public static Setting mode = new Setting("Mode", "both", modes);
-    public static Setting healthToEat = new Setting("Health", 10, 1, 36, 1, true);
-    public static Setting hungerToEat = new Setting("Hunger", 13, 1, 20, 1, true);
-    public static Setting gapNoFireRes = new Setting("FireResistance", false);
-    public static Setting crashNoFood = new Setting("NoFoodQuit", false);
-    public static Setting alarm = new Setting("Alarm", false);
+    public static Setting mode = new Setting("mode", "both", modes);
+    public static Setting healthToEat = new Setting("health", 10, 1, 36, 1, true);
+    public static Setting hungerToEat = new Setting("hunger", 13, 1, 20, 1, true);
+    public static Setting gapNoFireRes = new Setting("fire-resistance", false);
+    public static Setting crashNoFood = new Setting("quit-no-food", false);
+    public static Setting alarm = new Setting("alarm", false);
 
     public AutoEat() {
         super("auto-eat", Category.highway, GLFW.GLFW_KEY_I);

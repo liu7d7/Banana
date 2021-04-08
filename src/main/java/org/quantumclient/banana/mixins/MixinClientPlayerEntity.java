@@ -8,6 +8,7 @@ import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.MovementType;
 import net.minecraft.util.math.Vec3d;
+import org.quantumclient.banana.event.EventSingleTick;
 import org.quantumclient.banana.event.EventTwelvetupleTick;
 import org.quantumclient.energy.EventBus;
 import org.spongepowered.asm.mixin.Final;
@@ -63,6 +64,8 @@ public class MixinClientPlayerEntity extends AbstractClientPlayerEntity {
     public void tick(CallbackInfo info) {
         EventTwelvetupleTick EventTwelvetupleTick = new EventTwelvetupleTick();
         EventBus.post(EventTwelvetupleTick);
+        EventSingleTick event  = new EventSingleTick();
+        EventBus.post(event);
     }
 
     @Inject(at = @At("HEAD"), method = "tick")
