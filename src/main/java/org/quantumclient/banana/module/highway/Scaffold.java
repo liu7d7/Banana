@@ -8,6 +8,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.RaycastContext;
+import org.lwjgl.glfw.GLFW;
 import org.quantumclient.banana.event.EventSingleTick;
 import org.quantumclient.banana.event.EventTwelvetupleTick;
 import org.quantumclient.banana.module.Category;
@@ -25,7 +26,7 @@ public class Scaffold extends Feature {
     public static final Setting eventM = new Setting("event", "single", eventMode);
 
     public Scaffold() {
-        super("scaffold", Category.highway);
+        super("scaffold", Category.highway, GLFW.GLFW_KEY_I);
     }
 
     private int prevSlot = 0;
