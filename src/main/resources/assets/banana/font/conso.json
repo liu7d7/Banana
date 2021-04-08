@@ -1,0 +1,11 @@
+{
+  "providers": [
+    {
+      "type": "ttf",
+      "file": "banana:conso.ttf",
+      "shift": [0, 2],
+      "size": 8,
+      "oversample": 4.213122
+    }
+  ]
+}

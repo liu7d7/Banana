@@ -1,9 +1,12 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "org.quantumclient.banana.mixin",
+  "package": "org.quantumclient.banana.mixins",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
+    "MixinKeyboard",
+    "MixinMinecraftClient",
+    "MixinParticleManager"
   ],
   "client": [
   ],
