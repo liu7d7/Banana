@@ -83,7 +83,7 @@ public class NukerBypass extends Feature {
     @Subscribe
     public void onMove(EventTwelvetupleTick event) {
         List<BlockPos> blocks = getBlocks();
-        double range = 10;
+        if (mc.player.age < 15) return;
 
         AutoEat autoEat = (AutoEat) Banana.getFeatureManager().getFeature(AutoEat.class);
 
@@ -93,7 +93,6 @@ public class NukerBypass extends Feature {
 
         for (BlockPos pos : blocks) {
             if (mc.world.getBlockState(pos).isAir()) continue;
-            mc.player.swingHand(Hand.MAIN_HAND);
             mine(pos);
         }
     }
@@ -225,11 +224,9 @@ public class NukerBypass extends Feature {
                         cubeBlocks.add(playerPos.east());
                         cubeBlocks.add(playerPos.east().up());
                         cubeBlocks.add(playerPos.east().up(2));
-                        cubeBlocks.add(playerPos.east().up(3));
                         cubeBlocks.add(playerPos.east().north());
                         cubeBlocks.add(playerPos.east().north().up());
                         cubeBlocks.add(playerPos.east().north().up(2));
-                        cubeBlocks.add(playerPos.east().north().up(3));
                         playerPos = new BlockPos(playerPos).east();
                     }
                     break;
@@ -260,11 +257,9 @@ public class NukerBypass extends Feature {
                         cubeBlocks.add(playerPos.west());
                         cubeBlocks.add(playerPos.west().up());
                         cubeBlocks.add(playerPos.west().up().up());
-                        cubeBlocks.add(playerPos.west().up().up(2));
                         cubeBlocks.add(playerPos.west().south());
                         cubeBlocks.add(playerPos.west().south().up());
                         cubeBlocks.add(playerPos.west().south().up().up());
-                        cubeBlocks.add(playerPos.west().south().up().up(2));
                         playerPos = new BlockPos(playerPos).west();
                     }
                     break;
@@ -473,14 +468,9 @@ public class NukerBypass extends Feature {
     }
 
     private void mine(BlockPos pos) {
-        if (mc.interactionManager != null && mc.player != null) {
-            mc.interactionManager.updateBlockBreakingProgress(pos, Direction.UP);
-            mc.player.swingHand(Hand.MAIN_HAND);
-            if(mc.world.getBlockState(pos).getBlock() != Blocks.NETHERITE_BLOCK) {
-                mc.interactionManager.updateBlockBreakingProgress(pos, Direction.UP);
-                mc.interactionManager.updateBlockBreakingProgress(pos, Direction.UP);
-            }
-        }
+        mc.interactionManager.updateBlockBreakingProgress(pos, Direction.DOWN);
+        mc.interactionManager.updateBlockBreakingProgress(pos, Direction.DOWN);
+        mc.player.swingHand(Hand.MAIN_HAND);
     }
 
 }
