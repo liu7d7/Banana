@@ -1,10 +1,10 @@
 package org.quantumclient.banana.module;
 
-import net.minecraft.client.gui.screen.ChatScreen;
 import org.lwjgl.glfw.GLFW;
 import org.quantumclient.banana.event.KeyPressEvent;
 import org.quantumclient.banana.module.highway.*;
 import org.quantumclient.banana.module.render.ClickGUI;
+import org.quantumclient.banana.module.render.Fun;
 import org.quantumclient.banana.settings.Setting;
 import org.quantumclient.banana.utilities.MinecraftInterface;
 import org.quantumclient.energy.EventBus;
@@ -28,6 +28,8 @@ public class FeatureManager implements MinecraftInterface {
         add(new Yaw());
         add(new ClickGUI());
         add(new NoSwingPacket());
+        add(new Fun());
+        add(new Scaffold());
     }
 
     public Feature getFeature(Class clazz) {
