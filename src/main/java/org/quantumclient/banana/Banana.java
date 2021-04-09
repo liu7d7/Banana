@@ -20,7 +20,7 @@ public class Banana implements ModInitializer {
     public static final String NAME = "Banana";
     protected static SaveConfig saveConfig;
     protected static LoadConfig loadConfig;
-    public static final String VERSION = "1.0-beta";
+    public static final String VERSION = "1.1-beta";
     protected static final FeatureManager featureManager = new FeatureManager();
 
     @Override
@@ -29,8 +29,8 @@ public class Banana implements ModInitializer {
         ThemeBase.initThemes();
         mc.execute(this::updateTitle);
         mc.execute(this::updateIcon);
-        saveConfig = new SaveConfig();
         loadConfig = new LoadConfig();
+        saveConfig = new SaveConfig();
         Runtime.getRuntime().addShutdownHook(new Thread(saveConfig::saveModules));
     }
 

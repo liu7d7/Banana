@@ -8,6 +8,7 @@ import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.MovementType;
 import net.minecraft.util.math.Vec3d;
+import org.quantumclient.banana.event.EventQuadrupleTick;
 import org.quantumclient.banana.event.EventSingleTick;
 import org.quantumclient.banana.event.EventTwelvetupleTick;
 import org.quantumclient.energy.EventBus;
@@ -34,6 +35,8 @@ public class MixinClientPlayerEntity extends AbstractClientPlayerEntity {
     public void tick9(CallbackInfo info) {
         EventTwelvetupleTick EventTwelvetupleTick = new EventTwelvetupleTick();
         EventBus.post(EventTwelvetupleTick);
+        EventQuadrupleTick fortnite = new EventQuadrupleTick();
+        EventBus.post(fortnite);
     }
 
     @Inject(at = @At("INVOKE"), method = "sendMovementPackets")
@@ -66,12 +69,16 @@ public class MixinClientPlayerEntity extends AbstractClientPlayerEntity {
         EventBus.post(EventTwelvetupleTick);
         EventSingleTick event  = new EventSingleTick();
         EventBus.post(event);
+        EventQuadrupleTick fortnite = new EventQuadrupleTick();
+        EventBus.post(fortnite);
     }
 
     @Inject(at = @At("HEAD"), method = "tick")
     public void tick2(CallbackInfo info) {
         EventTwelvetupleTick EventTwelvetupleTick = new EventTwelvetupleTick();
         EventBus.post(EventTwelvetupleTick);
+        EventQuadrupleTick fortnite = new EventQuadrupleTick();
+        EventBus.post(fortnite);
     }
 
     @Inject(at = @At("HEAD"), method = "tickMovement")
@@ -102,6 +109,8 @@ public class MixinClientPlayerEntity extends AbstractClientPlayerEntity {
     public void tick3(CallbackInfo info) {
         EventTwelvetupleTick EventTwelvetupleTick = new EventTwelvetupleTick();
         EventBus.post(EventTwelvetupleTick);
+        EventQuadrupleTick fortnite = new EventQuadrupleTick();
+        EventBus.post(fortnite);
     }
 
 }

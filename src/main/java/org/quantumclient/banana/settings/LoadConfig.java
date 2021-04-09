@@ -26,26 +26,24 @@ public class LoadConfig {
         loadModules();
     }
 
-
     public void loadModules() {
         String moduleLocation = folderName + moduleName;
 
         for (Feature feature : Banana.getFeatureManager().getFeatures()) {
             try {
                 if (!Files.exists(Paths.get(moduleLocation + feature.getName() + ".json"))) {
-                    return;
+                    continue;
                 }
 
                 InputStream inputStream = Files.newInputStream(Paths.get(moduleLocation + feature.getName() + ".json"));
                 JsonObject moduleObject = new JsonParser().parse(new InputStreamReader(inputStream)).getAsJsonObject();
 
                 if (moduleObject.get("Module") == null) {
-                    return;
+                    continue;
                 }
 
                 JsonObject toggleObject = moduleObject.get("Toggled").getAsJsonObject();
                 JsonElement toggleElement = toggleObject.get("Toggled");
-                // feature.setToggled(toggleElement.getAsBoolean());
                 if (toggleElement.getAsBoolean()) {
                     if(!feature.isToggled())
                         feature.toggleNoSave();
@@ -77,7 +75,6 @@ public class LoadConfig {
 
                 inputStream.close();
             } catch (IOException e) {
-                System.out.println(feature.getName());
                 e.printStackTrace();
             }
         }

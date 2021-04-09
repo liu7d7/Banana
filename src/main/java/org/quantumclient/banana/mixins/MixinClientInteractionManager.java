@@ -4,6 +4,7 @@ import net.minecraft.client.network.ClientPlayerInteractionManager;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import org.quantumclient.banana.event.EventBlockBreakingProgress;
+import org.quantumclient.banana.event.EventBreakBlock;
 import org.quantumclient.energy.EventBus;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -18,6 +19,13 @@ public class MixinClientInteractionManager {
         EventBlockBreakingProgress event = new EventBlockBreakingProgress(blockPos_1, direction_1);
         EventBus.post(event);
         if (event.isCancelled()) cir.cancel();
+    }
+
+    @Inject(at = @At(value = "INVOKE"), method = "breakBlock", cancellable = true)
+    public void breakBlock(BlockPos pos, CallbackInfoReturnable<Boolean> info) {
+        EventBreakBlock event = new EventBreakBlock(pos);
+        EventBus.post(event);
+        if (event.isCancelled()) info.cancel();
     }
 
 }

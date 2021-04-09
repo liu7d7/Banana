@@ -34,7 +34,6 @@ public class AutoWalk extends Feature {
 
     @Subscribe
     public void onTick(EventTwelvetupleTick event) {
-        System.out.println("hi");
         AutoEat autoEat = (AutoEat) Banana.getFeatureManager().getFeature(AutoEat.class);
         boolean pause = (mc.player.getY() >= 121 && stop.getValBoolean()) || getClosestPlayer() || autoEat.isEating() || (pauseNoPickaxe.getValBoolean() && (mc.player.inventory.getMainHandStack().getItem() != Items.DIAMOND_PICKAXE && mc.player.inventory.getMainHandStack().getItem() != Items.NETHERITE_PICKAXE));
         if (true) {

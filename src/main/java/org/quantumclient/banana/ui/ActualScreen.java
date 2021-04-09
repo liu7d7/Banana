@@ -36,6 +36,15 @@ public class ActualScreen extends Screen {
     }
 
     @Override
+    public boolean mouseScrolled(double mouseX, double mouseY, double mouseButton) {
+        for (Window window : windows) {
+            window.mouseScrolled(mouseX, mouseY, mouseButton);
+        }
+        return super.mouseScrolled(mouseX, mouseY, mouseButton);
+    }
+
+
+    @Override
     public void render(MatrixStack matrices, int mouseX, int mouseY, float partialTicks) {
         for (Window window : windows) {
             window.render(matrices, mouseX, mouseY);

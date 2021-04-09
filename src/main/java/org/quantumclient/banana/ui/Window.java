@@ -76,6 +76,12 @@ public class Window implements MinecraftInterface {
         this.dragY = (int) (this.y - mouseY);
     }
 
+    public void mouseScrolled(double mouseX, double mouseY, double button) {
+        for (Button b : buttons) {
+            b.mouseScrolled(mouseX, mouseY, button);
+        }
+    }
+
     public void keyTyped(int key) {
         for (Button b : buttons) {
             b.keyTyped(key);

@@ -4,6 +4,8 @@
   "package": "org.quantumclient.banana.mixins",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
+    "MixinClientInteractionManager",
+    "MixinClientPlayerEntity",
     "MixinHeldItemRenderer",
     "MixinKeyboard",
     "MixinMinecraftClient",

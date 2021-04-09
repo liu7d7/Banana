@@ -110,6 +110,11 @@ public class Button {
         }
     }
 
+    public void mouseScrolled(double mouseX, double mouseY, double inc) {
+        if (this.type == ButtonType.doublePrecision && isWithin(mouseX, mouseY)) {
+            this.setting.setValDouble(((Double) this.setting.getValDouble() + (double) this.setting.getInc() * inc));
+        }
+    }
 
     public void keyTyped(int key) {
         if (this.type == ButtonType.bind) {
