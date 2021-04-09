@@ -1,6 +1,7 @@
 package org.quantumclient.banana.module.highway;
 
 import net.minecraft.block.Blocks;
+import net.minecraft.network.packet.c2s.play.PlayerActionC2SPacket;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
@@ -153,16 +154,19 @@ public class NukerBypass extends Feature {
                 }
                 for (int i = 0; i < backward.getValInt(); i++) {
                     blocks.add(mc.player.getBlockPos().east(i));
+                    for (int j = 0; j < up.getValInt(); j++) {
+                        blocks.add(mc.player.getBlockPos().east(i).up(j));
+                    }
                     for (int i2 = 0; i2 < left.getValInt(); i2++) {
-                        blocks.add(mc.player.getBlockPos().south(i2));
+                        blocks.add(mc.player.getBlockPos().east(i).south(i2));
                         for (int j = 0; j < up.getValInt(); j++) {
-                            blocks.add(mc.player.getBlockPos().south(i2).west(i).up(j));
+                            blocks.add(mc.player.getBlockPos().south(i2).east(i).up(j));
                         }
                     }
                     for (int i2 = 0; i2 < right.getValInt(); i2++) {
-                        blocks.add(mc.player.getBlockPos().north(i2));
+                        blocks.add(mc.player.getBlockPos().east(i).north(i2));
                         for (int j = 0; j < up.getValInt(); j++) {
-                            blocks.add(mc.player.getBlockPos().west(i).north(i2).up(j));
+                            blocks.add(mc.player.getBlockPos().east(i).north(i2).up(j));
                         }
                     }
                 }
@@ -206,30 +210,37 @@ public class NukerBypass extends Feature {
                 }
                 break;
         }
+        if (disable.getValBoolean()) {
+            for (final BlockPos pos : getBlacklistedBlockPoses()) {
+                blocks.remove(pos);
+            }
+        }
         return blocks;
     }
 
     @Subscribe
-    public void onMove(EventTwelvetupleTick event) {
+    public void onMove(final EventTwelvetupleTick event) {
         if (mc.player.age < 15) return;
         if (minedBlockList.size() > 60) minedBlockList.clear();
 
         AutoEat autoEat = (AutoEat) Banana.getFeatureManager().getFeature(AutoEat.class);
 
-        if (autoEat.isEating()) return;
+        if (autoEat.isEating() || !mc.player.isOnGround()) return;
 
-        if (getBlocks().isEmpty()) return;
-
-        for (BlockPos pos : getBlocks()) {
+        for (final BlockPos pos : getBlocks()) {
             if (mc.world.getBlockState(pos).isAir() || mc.world.getBlockState(pos).getBlock().equals(Blocks.WATER) || mc.world.getBlockState(pos).getBlock().equals(Blocks.LAVA)) continue;
             if (getBlacklistedBlockPoses().contains(pos) && disable.getValBoolean()) continue;
             mine(pos);
         }
     }
 
-    private void mine(BlockPos pos) {
+    private void mine(final BlockPos pos) {
+        if (mc.world.getBlockState(pos).isAir()) return;
+        if (mc.world.getBlockState(pos).getBlock().equals(Blocks.SOUL_SAND)) return;
         mc.interactionManager.attackBlock(pos, Direction.DOWN);
+        mc.interactionManager.updateBlockBreakingProgress(pos, Direction.DOWN);
         mc.interactionManager.attackBlock(pos, Direction.DOWN);
+        mc.interactionManager.updateBlockBreakingProgress(pos, Direction.DOWN);
         mc.player.swingHand(Hand.MAIN_HAND);
     }
 
@@ -278,7 +289,7 @@ public class NukerBypass extends Feature {
                 returned.add(mc.player.getBlockPos().east().north(3));
                 returned.add(mc.player.getBlockPos().east().north(3).up());
                 returned.add(mc.player.getBlockPos().east().north(3).up(2));
-                returned.add(mc.player.getBlockPos().south(3).up(2));
+                returned.add(mc.player.getBlockPos().north(3).up(2));
                 returned.add(mc.player.getBlockPos().east().north(4));
                 returned.add(mc.player.getBlockPos().east().north(4).up());
                 returned.add(mc.player.getBlockPos().east().north(4).up(2));
@@ -309,28 +320,12 @@ public class NukerBypass extends Feature {
                 returned.add(mc.player.getBlockPos().east(4).up(2));
                 break;
             case West:
-                returned.add(mc.player.getBlockPos().north());
-                returned.add(mc.player.getBlockPos().north().up());
-                returned.add(mc.player.getBlockPos().north().up(2));
                 returned.add(mc.player.getBlockPos().up(2));
                 returned.add(mc.player.getBlockPos().up(2).east());
                 returned.add(mc.player.getBlockPos().up(2).east(2));
-                returned.add(mc.player.getBlockPos().north().west());
-                returned.add(mc.player.getBlockPos().north().west().up());
-                returned.add(mc.player.getBlockPos().north().west().up(2));
                 returned.add(mc.player.getBlockPos().west().up(2));
-                returned.add(mc.player.getBlockPos().north().west(2));
-                returned.add(mc.player.getBlockPos().north().west(2).up());
-                returned.add(mc.player.getBlockPos().north().west(2).up(2));
                 returned.add(mc.player.getBlockPos().west(2).up(2));
-                returned.add(mc.player.getBlockPos().north().west(3));
-                returned.add(mc.player.getBlockPos().north().west(3).up());
-                returned.add(mc.player.getBlockPos().north().west(3).up(2));
                 returned.add(mc.player.getBlockPos().west(3).up(2));
-                returned.add(mc.player.getBlockPos().north().west(4));
-                returned.add(mc.player.getBlockPos().north().west(4).up());
-                returned.add(mc.player.getBlockPos().north().west(4).up(2));
-                returned.add(mc.player.getBlockPos().west(4).up(2));
         }
         return returned;
     }

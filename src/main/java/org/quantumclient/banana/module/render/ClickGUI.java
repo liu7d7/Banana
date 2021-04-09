@@ -14,7 +14,7 @@ public class ClickGUI extends Feature {
     }
 
     public ClickGUI() {
-        super("click-gui", Category.render, GLFW.GLFW_KEY_RIGHT_SHIFT);
+        super("click-gui", Category.render, GLFW.GLFW_KEY_UP);
     }
 
 }
