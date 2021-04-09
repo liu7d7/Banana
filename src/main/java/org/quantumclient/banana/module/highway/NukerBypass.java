@@ -1,18 +1,13 @@
 package org.quantumclient.banana.module.highway;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-import net.minecraft.network.packet.c2s.play.PlayerActionC2SPacket;
-import net.minecraft.network.packet.s2c.play.PlaySoundIdS2CPacket;
-import net.minecraft.network.packet.s2c.play.PlaySoundS2CPacket;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import org.lwjgl.glfw.GLFW;
 import org.quantumclient.banana.Banana;
-import org.quantumclient.banana.event.EventPacket;
-import org.quantumclient.banana.event.EventQuadrupleTick;
+import org.quantumclient.banana.event.EventDoubleTick;
 import org.quantumclient.banana.event.EventTwelvetupleTick;
 import org.quantumclient.banana.module.Category;
 import org.quantumclient.banana.module.Feature;
@@ -21,7 +16,6 @@ import org.quantumclient.banana.utilities.PlayerUtils;
 import org.quantumclient.energy.Subscribe;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class NukerBypass extends Feature {
@@ -216,7 +210,7 @@ public class NukerBypass extends Feature {
     }
 
     @Subscribe
-    public void onMove(EventQuadrupleTick event) {
+    public void onMove(EventTwelvetupleTick event) {
         if (mc.player.age < 15) return;
         if (minedBlockList.size() > 60) minedBlockList.clear();
 
@@ -227,17 +221,15 @@ public class NukerBypass extends Feature {
         if (getBlocks().isEmpty()) return;
 
         for (BlockPos pos : getBlocks()) {
-            if (mc.world.getBlockState(pos).isAir()) continue;
+            if (mc.world.getBlockState(pos).isAir() || mc.world.getBlockState(pos).getBlock().equals(Blocks.WATER) || mc.world.getBlockState(pos).getBlock().equals(Blocks.LAVA)) continue;
             if (getBlacklistedBlockPoses().contains(pos) && disable.getValBoolean()) continue;
             mine(pos);
         }
     }
 
     private void mine(BlockPos pos) {
-        mc.getNetworkHandler().sendPacket(new PlayerActionC2SPacket(PlayerActionC2SPacket.Action.START_DESTROY_BLOCK, pos, Direction.DOWN));
-        mc.interactionManager.updateBlockBreakingProgress(pos, Direction.DOWN);
-        mc.interactionManager.breakBlock(pos);
-        mc.getNetworkHandler().sendPacket(new PlayerActionC2SPacket(PlayerActionC2SPacket.Action.STOP_DESTROY_BLOCK, pos, Direction.DOWN));
+        mc.interactionManager.attackBlock(pos, Direction.DOWN);
+        mc.interactionManager.attackBlock(pos, Direction.DOWN);
         mc.player.swingHand(Hand.MAIN_HAND);
     }
 

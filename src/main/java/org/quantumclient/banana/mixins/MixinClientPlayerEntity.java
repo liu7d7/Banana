@@ -2,13 +2,10 @@ package org.quantumclient.banana.mixins;
 
 import com.mojang.authlib.GameProfile;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.world.ClientWorld;
-import net.minecraft.entity.MovementType;
-import net.minecraft.util.math.Vec3d;
-import org.quantumclient.banana.event.EventQuadrupleTick;
+import org.quantumclient.banana.event.EventDoubleTick;
 import org.quantumclient.banana.event.EventSingleTick;
 import org.quantumclient.banana.event.EventTwelvetupleTick;
 import org.quantumclient.energy.EventBus;
@@ -17,9 +14,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(value = ClientPlayerEntity.class, priority = 10000)
 public class MixinClientPlayerEntity extends AbstractClientPlayerEntity {
@@ -35,7 +30,7 @@ public class MixinClientPlayerEntity extends AbstractClientPlayerEntity {
     public void tick9(CallbackInfo info) {
         EventTwelvetupleTick EventTwelvetupleTick = new EventTwelvetupleTick();
         EventBus.post(EventTwelvetupleTick);
-        EventQuadrupleTick fortnite = new EventQuadrupleTick();
+        EventDoubleTick fortnite = new EventDoubleTick();
         EventBus.post(fortnite);
     }
 
@@ -69,7 +64,7 @@ public class MixinClientPlayerEntity extends AbstractClientPlayerEntity {
         EventBus.post(EventTwelvetupleTick);
         EventSingleTick event  = new EventSingleTick();
         EventBus.post(event);
-        EventQuadrupleTick fortnite = new EventQuadrupleTick();
+        EventDoubleTick fortnite = new EventDoubleTick();
         EventBus.post(fortnite);
     }
 
@@ -77,8 +72,6 @@ public class MixinClientPlayerEntity extends AbstractClientPlayerEntity {
     public void tick2(CallbackInfo info) {
         EventTwelvetupleTick EventTwelvetupleTick = new EventTwelvetupleTick();
         EventBus.post(EventTwelvetupleTick);
-        EventQuadrupleTick fortnite = new EventQuadrupleTick();
-        EventBus.post(fortnite);
     }
 
     @Inject(at = @At("HEAD"), method = "tickMovement")
@@ -109,8 +102,6 @@ public class MixinClientPlayerEntity extends AbstractClientPlayerEntity {
     public void tick3(CallbackInfo info) {
         EventTwelvetupleTick EventTwelvetupleTick = new EventTwelvetupleTick();
         EventBus.post(EventTwelvetupleTick);
-        EventQuadrupleTick fortnite = new EventQuadrupleTick();
-        EventBus.post(fortnite);
     }
 
 }
