@@ -9,6 +9,7 @@ import net.minecraft.util.math.Direction;
 import org.lwjgl.glfw.GLFW;
 import org.quantumclient.banana.Banana;
 import org.quantumclient.banana.event.EventDoubleTick;
+import org.quantumclient.banana.event.EventSingleTick;
 import org.quantumclient.banana.event.EventTwelvetupleTick;
 import org.quantumclient.banana.module.Category;
 import org.quantumclient.banana.module.Feature;
@@ -219,7 +220,7 @@ public class NukerBypass extends Feature {
     }
 
     @Subscribe
-    public void onMove(final EventTwelvetupleTick event) {
+    public void onMove(final EventSingleTick event) {
         if (mc.player.age < 15) return;
         if (minedBlockList.size() > 60) minedBlockList.clear();
 
