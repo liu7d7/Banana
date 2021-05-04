@@ -235,13 +235,8 @@ public class NukerBypass extends Feature {
     }
 
     private void mine(final BlockPos pos) {
-        if (mc.world.getBlockState(pos).isAir()) return;
-        if (mc.world.getBlockState(pos).getBlock().equals(Blocks.SOUL_SAND)) return;
-        mc.interactionManager.attackBlock(pos, Direction.DOWN);
-        mc.interactionManager.updateBlockBreakingProgress(pos, Direction.DOWN);
-        mc.interactionManager.attackBlock(pos, Direction.DOWN);
-        mc.interactionManager.updateBlockBreakingProgress(pos, Direction.DOWN);
-        mc.player.swingHand(Hand.MAIN_HAND);
+        mc.getNetworkHandler().sendPacket(new PlayerActionC2SPacket(PlayerActionC2SPacket.Action.START_DESTROY_BLOCK, pos, Direction.DOWN));
+        mc.getNetworkHandler().sendPacket(new PlayerActionC2SPacket(PlayerActionC2SPacket.Action.STOP_DESTROY_BLOCK, pos, Direction.DOWN));
     }
 
     public List<BlockPos> getBlacklistedBlockPoses() {
