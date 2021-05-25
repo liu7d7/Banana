@@ -11,6 +11,7 @@ import net.minecraft.world.RaycastContext;
 import org.lwjgl.glfw.GLFW;
 import org.quantumclient.banana.event.EventSingleTick;
 import org.quantumclient.banana.event.EventTwelvetupleTick;
+import org.quantumclient.banana.event.Move;
 import org.quantumclient.banana.module.Category;
 import org.quantumclient.banana.module.Feature;
 import org.quantumclient.banana.settings.Setting;
@@ -21,7 +22,7 @@ import java.util.List;
 
 public class Scaffold extends Feature {
 
-    final static List<String> eventMode = Arrays.asList("twelve-tuple", "single");
+    final static List<String> eventMode = Arrays.asList("move", "single");
 
     public static final Setting eventM = new Setting("event", "single", eventMode);
 
@@ -32,7 +33,7 @@ public class Scaffold extends Feature {
     private int prevSlot = 0;
 
     @Subscribe
-    public void onTick(EventTwelvetupleTick event) {
+    public void onTick(Move event) {
         if (eventM.getValString().equals("twelve-tuple")) {
             if (mc.world.getBlockState(mc.player.getBlockPos().down()).isAir()) {
                 searchBlocks();
