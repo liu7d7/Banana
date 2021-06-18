@@ -27,8 +27,8 @@ public class NukerBypass extends Feature {
     public static Setting up = new Setting("up", 3, 0, 4, 1, true);
     public static Setting left = new Setting("left", 0, 0, 4, 1, true);
     public static Setting right = new Setting("right", 1, 0, 4, 1, true);
-    public static Setting forward = new Setting("forward", 4, 0, 4, 1, true);
-    public static Setting backward = new Setting("backward", 4, 0, 4, 1, true);
+    public static Setting forward = new Setting("forward", 4, 0, 7, 1, true);
+    public static Setting backward = new Setting("backward", 4, 0, 7, 1, true);
     public static Setting disable = new Setting("disable", false);
 
     @Override
@@ -237,6 +237,7 @@ public class NukerBypass extends Feature {
 
     private void mine(final BlockPos pos) {
         mc.getNetworkHandler().sendPacket(new PlayerActionC2SPacket(PlayerActionC2SPacket.Action.START_DESTROY_BLOCK, pos, Direction.DOWN));
+        mc.interactionManager.breakBlock(pos);
         mc.getNetworkHandler().sendPacket(new PlayerActionC2SPacket(PlayerActionC2SPacket.Action.STOP_DESTROY_BLOCK, pos, Direction.DOWN));
     }
 
