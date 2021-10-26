@@ -14,6 +14,7 @@ import org.quantumclient.energy.Subscribe;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class AutoEat extends Feature {
     
@@ -37,7 +38,7 @@ public class AutoEat extends Feature {
         if (crashNoFood.getValBoolean()) {
             int food = 0;
             for (int i = 0; i < 9; i++) {
-                if (mc.player.inventory.getStack(i).getItem().isFood()) {
+                if (mc.player.getInventory().getStack(i).getItem().isFood()) {
                     food++;
                 }
             }
@@ -45,10 +46,10 @@ public class AutoEat extends Feature {
                 mc.close();
             }
         }
-        if (((mode.getValString() == "both" || mode.getValString() == "hunger") && mc.player.getHungerManager().getFoodLevel() == 20) && ((mode.getValString() == "both" || mode.getValString() == "hunger") && mc.player.getHealth() + mc.player.getAbsorptionAmount() > healthToEat.getValInt()) && gapNoFireRes.getValBoolean()) {
+        if (((Objects.equals(mode.getValString(), "both") || Objects.equals(mode.getValString(), "hunger")) && mc.player.getHungerManager().getFoodLevel() == 20) && ((Objects.equals(mode.getValString(), "both") || Objects.equals(mode.getValString(), "hunger")) && mc.player.getHealth() + mc.player.getAbsorptionAmount() > healthToEat.getValInt()) && gapNoFireRes.getValBoolean()) {
             if (mc.player.hasStatusEffect(StatusEffects.FIRE_RESISTANCE)) {
                 if (lastSlot != -1) {
-                    mc.player.inventory.selectedSlot = lastSlot;
+                    mc.player.getInventory().selectedSlot = lastSlot;
                     lastSlot = -1;
                 }
                 eating = false;
@@ -57,10 +58,10 @@ public class AutoEat extends Feature {
                 return;
             }
         }
-        if (mode.getValString() == "hunger") {
+        if (Objects.equals(mode.getValString(), "hunger")) {
             if (eating && (mc.player.getHungerManager().getFoodLevel() == 20) && !(gapNoFireRes.getValBoolean() && !mc.player.hasStatusEffect(StatusEffects.FIRE_RESISTANCE))) {
                 if (lastSlot != -1) {
-                    mc.player.inventory.selectedSlot = lastSlot;
+                    mc.player.getInventory().selectedSlot = lastSlot;
                     lastSlot = -1;
                 }
                 eating = false;
@@ -70,10 +71,10 @@ public class AutoEat extends Feature {
                 return;
             }
         }
-        if (mode.getValString() == "hunger") {
+        if (Objects.equals(mode.getValString(), "hunger")) {
             if (eating && (mc.player.getHealth() + mc.player.getAbsorptionAmount() > healthToEat.getValInt()) && !(gapNoFireRes.getValBoolean() && !mc.player.hasStatusEffect(StatusEffects.FIRE_RESISTANCE))) {
                 if (lastSlot != -1) {
-                    mc.player.inventory.selectedSlot = lastSlot;
+                    mc.player.getInventory().selectedSlot = lastSlot;
                     lastSlot = -1;
                 }
                 eating = false;
@@ -83,10 +84,10 @@ public class AutoEat extends Feature {
                 return;
             }
         }
-        if (mode.getValString() == "both") {
+        if (Objects.equals(mode.getValString(), "both")) {
             if (eating && (mc.player.getHealth() + mc.player.getAbsorptionAmount() > healthToEat.getValInt()) && (mc.player.getHungerManager().getFoodLevel() == 20) && !(gapNoFireRes.getValBoolean() && !mc.player.hasStatusEffect(StatusEffects.FIRE_RESISTANCE))) {
                 if (lastSlot != -1) {
-                    mc.player.inventory.selectedSlot = lastSlot;
+                    mc.player.getInventory().selectedSlot = lastSlot;
                     lastSlot = -1;
                 }
                 eating = false;
@@ -102,9 +103,9 @@ public class AutoEat extends Feature {
         if (gapNoFireRes.getValBoolean()) {
             if (!mc.player.hasStatusEffect(StatusEffects.FIRE_RESISTANCE)) {
                 for (int i = 0; i < 9; i++) {
-                    if (mc.player.inventory.getStack(i).getItem() == Items.ENCHANTED_GOLDEN_APPLE) {
-                        lastSlot = mc.player.inventory.selectedSlot;
-                        mc.player.inventory.selectedSlot = i;
+                    if (mc.player.getInventory().getStack(i).getItem() == Items.ENCHANTED_GOLDEN_APPLE) {
+                        lastSlot = mc.player.getInventory().selectedSlot;
+                        mc.player.getInventory().selectedSlot = i;
                         eating = true;
                         
                         if (mc.currentScreen != null && alarm.getValBoolean()) mc.getSoundManager().play(PositionedSoundInstance.master(SoundEvents.ENTITY_ENDERMAN_DEATH, 2.0F));
@@ -115,12 +116,12 @@ public class AutoEat extends Feature {
                 }
             }
         }
-        if (mode.getValString() == "hunger") {
+        if (Objects.equals(mode.getValString(), "hunger")) {
             if (mc.player.getHungerManager().getFoodLevel() < hungerToEat.getValInt()) {
                 for (int i = 0; i < 9; i++) {
-                    if (mc.player.inventory.getStack(i).isFood()) {
-                        lastSlot = mc.player.inventory.selectedSlot;
-                        mc.player.inventory.selectedSlot = i;
+                    if (mc.player.getInventory().getStack(i).isFood()) {
+                        lastSlot = mc.player.getInventory().selectedSlot;
+                        mc.player.getInventory().selectedSlot = i;
                         eating = true;
                         
                         if (mc.currentScreen != null && alarm.getValBoolean()) mc.getSoundManager().play(PositionedSoundInstance.master(SoundEvents.ENTITY_ENDERMAN_DEATH, 2.0F));
@@ -131,12 +132,12 @@ public class AutoEat extends Feature {
                 }
             }
         }
-        if (mode.getValString() == "hunger") {
+        if (Objects.equals(mode.getValString(), "hunger")) {
             if (mc.player.getHealth() + mc.player.getAbsorptionAmount() <= healthToEat.getValInt()) {
                 for (int i = 0; i < 9; i++) {
-                    if (mc.player.inventory.getStack(i).isFood()) {
-                        lastSlot = mc.player.inventory.selectedSlot;
-                        mc.player.inventory.selectedSlot = i;
+                    if (mc.player.getInventory().getStack(i).isFood()) {
+                        lastSlot = mc.player.getInventory().selectedSlot;
+                        mc.player.getInventory().selectedSlot = i;
                         eating = true;
                         
                         if (mc.currentScreen != null && alarm.getValBoolean()) mc.getSoundManager().play(PositionedSoundInstance.master(SoundEvents.ENTITY_ENDERMAN_DEATH, 2.0F));
@@ -147,12 +148,12 @@ public class AutoEat extends Feature {
                 }
             }
         }
-        if (mode.getValString() == "both") {
+        if (Objects.equals(mode.getValString(), "both")) {
             if (mc.player.getHealth() + mc.player.getAbsorptionAmount() <= healthToEat.getValInt() || mc.player.getHungerManager().getFoodLevel() < hungerToEat.getValInt()) {
                 for (int i = 0; i < 9; i++) {
-                    if (mc.player.inventory.getStack(i).isFood()) {
-                        lastSlot = mc.player.inventory.selectedSlot;
-                        mc.player.inventory.selectedSlot = i;
+                    if (mc.player.getInventory().getStack(i).isFood()) {
+                        lastSlot = mc.player.getInventory().selectedSlot;
+                        mc.player.getInventory().selectedSlot = i;
                         eating = true;
                         
                         if (mc.currentScreen != null && alarm.getValBoolean()) mc.getSoundManager().play(PositionedSoundInstance.master(SoundEvents.ENTITY_ENDERMAN_DEATH, 2.0F));

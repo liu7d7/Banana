@@ -37,7 +37,7 @@ public class HotbarCache extends Feature {
         super.onEnable();
         Hotbar.clear();
         for (int i = 0; i < 9; ++i) {
-            ItemStack l_Stack = mc.player.inventory.getStack(i);
+            ItemStack l_Stack = mc.player.getInventory().getStack(i);
             if (!l_Stack.isEmpty() && !Hotbar.contains(l_Stack.getItem()))
                 Hotbar.add(l_Stack.getItem());
             else
@@ -83,7 +83,7 @@ public class HotbarCache extends Feature {
         if (targetItem == Items.AIR)
             return false;
 
-        if (!mc.player.inventory.getStack(targetSlot).isEmpty() && mc.player.inventory.getStack(targetSlot).getItem() == targetItem)
+        if (!mc.player.getInventory().getStack(targetSlot).isEmpty() && mc.player.getInventory().getStack(targetSlot).getItem() == targetItem)
             return false;
 
         int slotFromCache = getItemSlot(targetItem);
@@ -104,7 +104,7 @@ public class HotbarCache extends Feature {
     }
 
     private boolean refillSlotIfNeed(int targetSlot) {
-        ItemStack targetStack = mc.player.inventory.getStack(targetSlot);
+        ItemStack targetStack = mc.player.getInventory().getStack(targetSlot);
 
         if (targetStack.isEmpty() || targetStack.getItem() == Items.AIR)
             return false;
@@ -115,9 +115,9 @@ public class HotbarCache extends Feature {
         if (targetStack.getCount() >= targetStack.getMaxCount())
             return false;
 
-        /// We're going to search the entire inventory for the same stack, WITH THE SAME NAME, and use quick move.
+        /// We're going to search the entire getInventory() for the same stack, WITH THE SAME NAME, and use quick move.
         for (int i = 9; i < 36; ++i) {
-            final ItemStack currentItem = mc.player.inventory.getStack(i);
+            final ItemStack currentItem = mc.player.getInventory().getStack(i);
 
             if (currentItem.isEmpty())
                 continue;
@@ -143,11 +143,11 @@ public class HotbarCache extends Feature {
         if (mc.player == null)
             return 0;
 
-        for (int i = 0; i < mc.player.inventory.size(); ++i) {
+        for (int i = 0; i < mc.player.getInventory().size(); ++i) {
             if (i == 0 || i == 5 || i == 6 || i == 7 || i == 8)
                 continue;
 
-            ItemStack s = mc.player.inventory.getStack(i);
+            ItemStack s = mc.player.getInventory().getStack(i);
 
             if (s.isEmpty())
                 continue;

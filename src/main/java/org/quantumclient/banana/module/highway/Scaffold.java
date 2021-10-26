@@ -5,13 +5,11 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.RaycastContext;
 import org.lwjgl.glfw.GLFW;
 import org.quantumclient.banana.event.EventSingleTick;
-import org.quantumclient.banana.event.EventTwelvetupleTick;
-import org.quantumclient.banana.event.Move;
+import org.quantumclient.banana.event.MotionUpdateEvent;
 import org.quantumclient.banana.module.Category;
 import org.quantumclient.banana.module.Feature;
 import org.quantumclient.banana.settings.Setting;
@@ -33,12 +31,12 @@ public class Scaffold extends Feature {
     private int prevSlot = 0;
 
     @Subscribe
-    public void onTick(Move event) {
+    public void onTick(MotionUpdateEvent event) {
         if (eventM.getValString().equals("twelve-tuple")) {
             if (mc.world.getBlockState(mc.player.getBlockPos().down()).isAir()) {
                 searchBlocks();
                 placeBlock(mc.player.getBlockPos().down());
-                mc.player.inventory.selectedSlot = prevSlot;
+                mc.player.getInventory().selectedSlot = prevSlot;
             }
         }
     }
@@ -49,7 +47,7 @@ public class Scaffold extends Feature {
             if (mc.world.getBlockState(mc.player.getBlockPos().down()).isAir()) {
                 searchBlocks();
                 placeBlock(mc.player.getBlockPos().down());
-                mc.player.inventory.selectedSlot = prevSlot;
+                mc.player.getInventory().selectedSlot = prevSlot;
             }
         }
     }
@@ -64,11 +62,11 @@ public class Scaffold extends Feature {
 
     private void searchBlocks() {
         for (int i = 0; i < 9; i++) {
-            if (mc.player.inventory.getMainHandStack().getItem() instanceof BlockItem) break;
+            if (mc.player.getInventory().getMainHandStack().getItem() instanceof BlockItem) break;
             else {
-                if (mc.player.inventory.getStack(i).getItem() instanceof BlockItem && !(((BlockItem) mc.player.inventory.getStack(i).getItem()).getBlock() instanceof FallingBlock)) {
-                    prevSlot = mc.player.inventory.selectedSlot;
-                    mc.player.inventory.selectedSlot = i;
+                if (mc.player.getInventory().getStack(i).getItem() instanceof BlockItem && !(((BlockItem) mc.player.getInventory().getStack(i).getItem()).getBlock() instanceof FallingBlock)) {
+                    prevSlot = mc.player.getInventory().selectedSlot;
+                    mc.player.getInventory().selectedSlot = i;
                     break;
                 }
             }

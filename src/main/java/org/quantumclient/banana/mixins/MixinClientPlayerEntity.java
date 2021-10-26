@@ -8,7 +8,7 @@ import net.minecraft.client.world.ClientWorld;
 import org.quantumclient.banana.event.EventDoubleTick;
 import org.quantumclient.banana.event.EventSingleTick;
 import org.quantumclient.banana.event.EventTwelvetupleTick;
-import org.quantumclient.banana.event.Move;
+import org.quantumclient.banana.event.MotionUpdateEvent;
 import org.quantumclient.energy.EventBus;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -43,7 +43,7 @@ public class MixinClientPlayerEntity extends AbstractClientPlayerEntity {
 
     @Inject(at = @At("HEAD"), method = "sendMovementPackets")
     public void tick11(CallbackInfo info) {
-        Move move = new Move();
+        MotionUpdateEvent move = new MotionUpdateEvent();
         EventBus.post(move);
         EventTwelvetupleTick EventTwelvetupleTick = new EventTwelvetupleTick();
         EventBus.post(EventTwelvetupleTick);

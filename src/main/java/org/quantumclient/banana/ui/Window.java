@@ -59,7 +59,6 @@ public class Window implements MinecraftInterface {
         for (Button b : buttons) {
             b.render(matrices);
         }
-        boolean haiku = false;
         DrawableHelper.fill(matrices, this.x, this.y + 11, this.x + 85 - 40 - 5 + 9, this.y + 12, 0xff7db1fb);
         DrawableHelper.fill(matrices, this.x + 85 - 40 - 5 + 9, this.y + 11, this.x + 85, this.y + 12, 0xff7db1fb);
         if (this.dragging) {

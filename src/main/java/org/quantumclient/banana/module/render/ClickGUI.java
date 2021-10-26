@@ -10,7 +10,7 @@ public class ClickGUI extends Feature {
     @Override
     public void onEnable() {
         toggle();
-        mc.openScreen(new ActualScreen());
+        mc.setScreen(new ActualScreen());
     }
 
     public ClickGUI() {

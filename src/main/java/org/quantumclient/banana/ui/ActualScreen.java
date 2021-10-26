@@ -7,7 +7,6 @@ import org.quantumclient.banana.Banana;
 import org.quantumclient.banana.module.Category;
 import org.quantumclient.banana.module.render.ClickGUI;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,12 +70,11 @@ public class ActualScreen extends Screen {
     }
 
     @Override
-    public boolean charTyped(char typed, int keyCode) {
-        System.out.println(keyCode);
+    public boolean keyPressed(int typed, int fortnight, int keyCode) {
         for (Window w : windows) {
-            w.keyTyped(keyCode);
+            w.keyTyped(typed);
         }
-        return super.charTyped(typed, keyCode);
+        return super.keyPressed(typed, fortnight, keyCode);
     }
 
 }

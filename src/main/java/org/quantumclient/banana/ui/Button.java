@@ -60,7 +60,7 @@ public class Button {
     public void mouseClicked(double mouseX, double mouseY, int mouseButton) {
         if (isWithin(mouseX, mouseY)) {
             if (mouseButton == 0) {
-                this.handleLMB(mouseX, mouseY);
+                this.handleLMB(mouseX);
             }
             if (mouseButton == 1) {
                 this.handleRMB();
@@ -71,7 +71,7 @@ public class Button {
         }
     }
 
-    public void handleLMB(double mouseX, double mouseY) {
+    public void handleLMB(double mouseX) {
         if (this.type == ButtonType.bind) {
             this.feature.setBinding(!this.feature.isBinding());
         }
@@ -82,7 +82,7 @@ public class Button {
             this.setting.setValString(setting.getNextInList(false));
         }
         if (this.type == ButtonType.doublePrecision) {
-            this.setting.setValDouble((((double) (mouseX - baseX)) / 85) * (setting.getMax() - setting.getMin()) + setting.getMin());
+            this.setting.setValDouble(((mouseX - baseX) / 85) * (setting.getMax() - setting.getMin()) + setting.getMin());
         }
         if (this.type == ButtonType.bool) {
             this.setting.setValBoolean(!this.setting.getValBoolean());
@@ -112,7 +112,7 @@ public class Button {
 
     public void mouseScrolled(double mouseX, double mouseY, double inc) {
         if (this.type == ButtonType.doublePrecision && isWithin(mouseX, mouseY)) {
-            this.setting.setValDouble(((Double) this.setting.getValDouble() + (double) this.setting.getInc() * inc));
+            this.setting.setValDouble((this.setting.getValDouble() + this.setting.getInc() * inc));
         }
     }
 

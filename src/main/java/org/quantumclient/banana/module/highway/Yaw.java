@@ -20,14 +20,14 @@ public class Yaw extends Feature {
     public void onTick(EventTwelvetupleTick event) {
         if (autoAlign.getValBoolean()) {
             switch (PlayerUtils.determineHighway()) {
-                case XP: mc.player.yaw = -90; break;
-                case XPZP: mc.player.yaw = -45; break;
-                case XPZN: mc.player.yaw = -135; break;
-                case XN: mc.player.yaw = 90; break;
-                case XNZP: mc.player.yaw = 45; break;
-                case XNZN: mc.player.yaw = 135; break;
-                case ZP: mc.player.yaw = 0; break;
-                case ZN: mc.player.yaw = 180; break;
+                case XP: mc.player.setYaw(-90); break;
+                case XPZP: mc.player.setYaw(-45); break;
+                case XPZN: mc.player.setYaw(-135); break;
+                case XN: mc.player.setYaw(90); break;
+                case XNZP: mc.player.setYaw(45); break;
+                case XNZN: mc.player.setYaw(135); break;
+                case ZP: mc.player.setYaw(0); break;
+                case ZN: mc.player.setYaw(180); break;
             }
         }
 

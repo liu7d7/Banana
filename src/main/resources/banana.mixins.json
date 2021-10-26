@@ -6,7 +6,6 @@
   "mixins": [
     "MixinClientInteractionManager",
     "MixinClientPlayerEntity",
-    "MixinHeldItemRenderer",
     "MixinKeyboard",
     "MixinMinecraftClient",
     "MixinParticleManager"

@@ -35,7 +35,7 @@ public class AutoWalk extends Feature {
     @Subscribe
     public void onTick(EventTwelvetupleTick event) {
         AutoEat autoEat = (AutoEat) Banana.getFeatureManager().getFeature(AutoEat.class);
-        boolean pause = (mc.player.getY() >= 121 && stop.getValBoolean()) || getClosestPlayer() || autoEat.isEating() || (pauseNoPickaxe.getValBoolean() && (mc.player.inventory.getMainHandStack().getItem() != Items.DIAMOND_PICKAXE && mc.player.inventory.getMainHandStack().getItem() != Items.NETHERITE_PICKAXE));
+        boolean pause = (mc.player.getY() >= 121 && stop.getValBoolean()) || getClosestPlayer() || autoEat.isEating() || (pauseNoPickaxe.getValBoolean() && (mc.player.getInventory().getMainHandStack().getItem() != Items.DIAMOND_PICKAXE && mc.player.getInventory().getMainHandStack().getItem() != Items.NETHERITE_PICKAXE));
         if (true) {
             if (!pause) {
                 if (autoAlign.getValBoolean()) {
@@ -43,20 +43,19 @@ public class AutoWalk extends Feature {
 
                     switch (PlayerUtils.determineHighway()) {
                         case XPZP:
-                            mc.player.yaw = 0;
+                            mc.player.setYaw(0);
                             mc.player.headYaw = -45;
                             mc.options.keyLeft.setPressed(true);
                             mc.options.keyForward.setPressed(true);
                             break;
                         case XNZP:
-                            mc.player.yaw = 90;
+                            mc.player.setYaw(90);
                             mc.player.headYaw = -135;
                             mc.options.keyForward.setPressed(true);
                             mc.options.keyLeft.setPressed(true);
                             break;
                         case XPZN:
-                            mc.player.yaw = 180;
-                            mc.player.yaw = 135;
+                            mc.player.setYaw(135);
                             break;
                     }
                 } else {
